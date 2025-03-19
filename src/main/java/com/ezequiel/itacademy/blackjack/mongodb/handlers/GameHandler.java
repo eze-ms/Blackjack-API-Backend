@@ -51,8 +51,8 @@ public class GameHandler {
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     public Mono<ServerResponse> addGame(ServerRequest request) {
-        return request.bodyToMono(Map.class) // Recibe JSON como un Map
-                .map(body -> body.get("playerId").toString().trim()) // Extrae solo el valor correcto
+        return request.bodyToMono(Map.class)
+                .map(body -> body.get("playerId").toString().trim())
                 .flatMap(gameService::createGame)
                 .flatMap(savedGame -> ServerResponse.created(URI.create("/game/" + savedGame.getId()))
                         .contentType(MediaType.APPLICATION_JSON)

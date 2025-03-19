@@ -1,5 +1,6 @@
 package com.ezequiel.itacademy.blackjack.mysql.handlers;
 
+import com.ezequiel.itacademy.blackjack.exception.PlayerNotFoundException;
 import com.ezequiel.itacademy.blackjack.mysql.entity.Player;
 import com.ezequiel.itacademy.blackjack.mysql.service.PlayerService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -68,12 +69,12 @@ public class PlayerHandler {
     public Mono<ServerResponse> updatePlayerName(ServerRequest request) {
         Long playerId = Long.parseLong(request.pathVariable("playerId").trim());
 
-        return request.bodyToMono(Map.class) // Recibe JSON correctamente
-                .map(body -> body.get("name").toString().trim()) // Extrae solo el valor del nombre
+        return request.bodyToMono(Map.class)
+                .map(body -> body.get("name").toString().trim())
                 .flatMap(name -> playerService.updatePlayerName(playerId, name))
                 .flatMap(updatedPlayer -> ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_JSON)
                         .bodyValue(updatedPlayer))
-                .switchIfEmpty(ServerResponse.notFound().build());
+                .onErrorResume(PlayerNotFoundException.class, ex -> ServerResponse.notFound().build());
     }
 }
