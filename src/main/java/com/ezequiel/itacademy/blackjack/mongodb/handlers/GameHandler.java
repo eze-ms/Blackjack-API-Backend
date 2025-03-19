@@ -17,6 +17,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
+import java.util.Map;
+
 
 import java.net.URI;
 
@@ -34,22 +36,23 @@ public class GameHandler {
             summary = "Crea una nueva partida de Blackjack",
             description = "Este endpoint permite crear una nueva partida asignando un jugador.",
             requestBody = @RequestBody(
-                    description = "Datos del jugador para crear la partida",
+                    description = "ID del jugador para crear la partida",
                     required = true,
                     content = @Content(
-                            schema = @Schema(implementation = String.class),
-                            examples = @ExampleObject(value = "Escribe aquí el id del jugador")
+                            schema = @Schema(implementation = Object.class),
+                            examples = @ExampleObject(value = "{ \"playerId\": \"\" }")
                     )
             )
     )
+
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Partida creada exitosamente"),
             @ApiResponse(responseCode = "400", description = "Solicitud inválida"),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     public Mono<ServerResponse> addGame(ServerRequest request) {
-        return request.bodyToMono(String.class)
-                .map(playerId -> playerId.trim().replace("\"", ""))
+        return request.bodyToMono(Map.class) // Recibe JSON como un Map
+                .map(body -> body.get("playerId").toString().trim()) // Extrae solo el valor correcto
                 .flatMap(gameService::createGame)
                 .flatMap(savedGame -> ServerResponse.created(URI.create("/game/" + savedGame.getId()))
                         .contentType(MediaType.APPLICATION_JSON)

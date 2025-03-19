@@ -17,6 +17,8 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
+import java.util.Map;
+
 @Component
 public class PlayerHandler {
 
@@ -26,7 +28,6 @@ public class PlayerHandler {
         this.playerService = playerService;
     }
 
-    //! Actualizar el nombre de un jugador.
     @Operation(
             summary = "Actualizar el nombre de un jugador",
             description = "Este endpoint permite cambiar el nombre de un jugador en la base de datos.",
@@ -42,8 +43,8 @@ public class PlayerHandler {
                     description = "Nuevo nombre del jugador",
                     required = true,
                     content = @Content(
-                            schema = @Schema(implementation = String.class),
-                            examples = @ExampleObject(value = "Escribe el nuevo nombre aquí")
+                            schema = @Schema(implementation = Object.class),
+                            examples = @ExampleObject(value = "{ \"name\": \"\" }")
                     )
             )
     )
@@ -67,8 +68,8 @@ public class PlayerHandler {
     public Mono<ServerResponse> updatePlayerName(ServerRequest request) {
         Long playerId = Long.parseLong(request.pathVariable("playerId").trim());
 
-        return request.bodyToMono(String.class)
-                .map(body -> body.trim().replace("\"", ""))
+        return request.bodyToMono(Map.class) // Recibe JSON correctamente
+                .map(body -> body.get("name").toString().trim()) // Extrae solo el valor del nombre
                 .flatMap(name -> playerService.updatePlayerName(playerId, name))
                 .flatMap(updatedPlayer -> ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_JSON)
