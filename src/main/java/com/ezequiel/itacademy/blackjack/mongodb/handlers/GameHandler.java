@@ -137,9 +137,7 @@ public class GameHandler {
 
         return gameService.findGameById(gameId)
                 .flatMap(gameDb -> gameService.deleteGame(gameDb.getId())
-                        .then(ServerResponse.ok()
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .bodyValue("{\"message\": \"Partida eliminada correctamente\", \"gameId\": \"" + gameId + "\"}")))
+                        .then(ServerResponse.noContent().build()))
                 .switchIfEmpty(ServerResponse.notFound().build());
     }
 }
