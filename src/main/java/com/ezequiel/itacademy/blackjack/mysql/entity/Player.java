@@ -17,7 +17,7 @@ public class Player {
     @Id
     private Long id;
 
-    @Column("name")
+    @Column("name")  // Correcto, coincide con la columna en la base de datos
     @NotBlank(message = "Please add the player name")
     private String name;
 }

@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  mysql-container:
+    image: mysql:5.7
+    container_name: mysql-container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: db_blackjack
+      MYSQL_USER: blackjack
+      MYSQL_PASSWORD: admin
+      MYSQL_INITDB_SKIP_TZINFO: "yes"
+      MYSQL_INNODB_FORCE_RECOVERY: "1"
+    ports:
+      - "3307:3306"
+    networks:
+      - blackjack-network
+    volumes:
+      - mysql_data:/var/lib/mysql  # Volumen persistente para MySQL
+
+  mongodb-container:
+    image: mongo:latest
+    container_name: mongodb-container
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_DATABASE: blackjack_db
+    ports:
+      - "27018:27017"
+    networks:
+      - blackjack-network
+    volumes:
+      - mongo_data:/data/db  # Volumen persistente para MongoDB
+
+  blackjack-api:
+    image: blackjack-api:latest
+    container_name: blackjack-api
+    restart: always
+    ports:
+      - "8081:8081"
+    networks:
+      - blackjack-network
+    depends_on:
+      - mysql-container
+      - mongodb-container
+
+networks:
+  blackjack-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+  mongo_data:

@@ -10,13 +10,13 @@ import org.springframework.data.relational.core.mapping.Table;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table("ranking")
+@Table("rankings")  // Cambiado de "Ranking" a "rankings"
 public class Ranking {
 
     @Id
     private Long id;
 
-    @Column("player_id")
+    @Column("player_id")  // Correcto, coincide con la columna en la base de datos
     private Long playerId;
 
     private Integer points;
