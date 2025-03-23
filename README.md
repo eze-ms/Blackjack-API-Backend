@@ -89,11 +89,11 @@ Este proyecto es una API REST desarrollada con **Spring Boot** y **Spring WebFlu
 ## 🚀 Despliegue en Docker Hub
 
 ### **Tareas completadas**
-✅ Creación del `Dockerfile` y `.dockerignore`.
-✅ Construcción y etiquetado de la imagen.
-✅ Iniciar sesión en Docker Hub.
-✅ Subida de la imagen al repositorio: `docker.io/ezemsdev/blackjack-api:latest`
-✅ Pruebas exitosas en contenedores Docker.
+- **Creación del `Dockerfile` y `.dockerignore`.**
+- **Construcción y etiquetado de la imagen.**
+- **Iniciar sesión en Docker Hub.**
+- **Subida de la imagen al repositorio: `docker.io/ezemsdev/blackjack-api:latest`**
+- **Pruebas exitosas en contenedores Docker.**
 
 ---
 
