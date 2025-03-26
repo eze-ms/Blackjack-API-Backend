@@ -63,11 +63,12 @@ Este proyecto es una API REST desarrollada con **Spring Boot** y **Spring WebFlu
     #spring.r2dbc.url=r2dbc:mysql://mysql-container:3306/db_blackjack
     #spring.data.mongodb.uri=mongodb://mongodb-container:27017/blackjack_db
     ```
-- **Y descomentar las líneas para entorno local:**
-    ```bash
-    #spring.r2dbc.url=r2dbc:pool:mysql://localhost:3306/db_blackjack
-    #spring.data.mongodb.database=blackjack_db
-    ```
+   - **Y descomentar las líneas para entorno local:**
+   ```bash
+       #spring.r2dbc.url=r2dbc:pool:mysql://localhost:3306/db_blackjack
+       #spring.data.mongodb.database=blackjack_db
+       
+   ```
 
 ### 🔹 Opcion 2: Ejecución con Docker
 1. Construir y levantar los contenedores:
@@ -75,7 +76,6 @@ Este proyecto es una API REST desarrollada con **Spring Boot** y **Spring WebFlu
    docker-compose up -d --build
    ```
 2. La API estará disponible en `http://localhost:8081`.
-       
 3. Iniciar MySQL y MongoDB.
 4. Ejecutar la aplicación:
    ```bash
