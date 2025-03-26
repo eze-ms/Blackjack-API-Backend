@@ -79,17 +79,15 @@ Este proyecto es una API REST desarrollada con **Spring Boot** y **Spring WebFlu
    ```bash
        #spring.r2dbc.url=r2dbc:pool:mysql://localhost:3306/db_blackjack
        #spring.data.mongodb.database=blackjack_db
-       
    ```
    
 2. Asegúrate de tener MySQL y MongoDB corriendo en tu entorno local.
-3. Iniciar MySQL y MongoDB. 4
-4. Ejecutar la aplicación:
+3. Ejecutar la aplicación:
    ```bash
    mvn spring-boot:run
    ```
    
-6. La API estará disponible en `http://localhost:8081`.
+4. La API estará disponible en `http://localhost:8081`.
 
 
 ## 📌 Endpoints Principales
