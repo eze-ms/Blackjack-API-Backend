@@ -58,6 +58,17 @@ Este proyecto es una API REST desarrollada con **Spring Boot** y **Spring WebFlu
    cd blackjack-api
    ```
 2. Configurar `application.properties` para conectar a bases de datos locales.
+   - **Comentar la línea para Docker:**
+         ```bash
+   spring.r2dbc.url=r2dbc:mysql://mysql-container:3306/db_blackjack
+spring.data.mongodb.uri=mongodb://mongodb-container:27017/blackjack_db
+       ```
+- **Y descomentar las líneas para entorno local:**
+    ```bash
+    #spring.r2dbc.url=r2dbc:pool:mysql://localhost:3306/db_blackjack
+    #spring.data.mongodb.database=blackjack_db
+    ```
+       
 3. Iniciar MySQL y MongoDB.
 4. Ejecutar la aplicación:
    ```bash
@@ -85,6 +96,26 @@ Este proyecto es una API REST desarrollada con **Spring Boot** y **Spring WebFlu
 | **PUT**  | `/player/{playerId}`   | Cambiar nombre de un jugador |
 
 ---
+## 📌Funcionalidad de Ranking
+
+### **🎯 Actualización automática del ranking**
+- **Cuando el jugador gana (PLAYER_WINS) o empata (DRAW), se actualiza automáticamente su puntuación en el ranking.**
+- **Reglas de puntuación:**
+
+  - `PLAYER_WINS`-> +10 puntos.
+  - `DRAW`-> +5 puntos.
+  - `DEALER_WINS`-> 0 puntos (no afecta al ranking).
+
+- **Si el jugador no tenía ranking, se crea automáticamente al ganar o empatar.**
+
+---
+
+## 🔒 Validación de jugadores
+- **Antes de crear una partida, la API verifica que el jugador exista en la base de datos.**
+- **Si no existe, se lanza la excepción PlayerNotFoundException y se bloquea la creación de la partida.**
+- **Esto evita duplicados y mantiene la integridad referencial.**
+
+----
 
 ## 🚀 Despliegue en Docker Hub
 

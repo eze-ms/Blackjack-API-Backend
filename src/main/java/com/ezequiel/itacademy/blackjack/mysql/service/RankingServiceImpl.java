@@ -1,11 +1,10 @@
 package com.ezequiel.itacademy.blackjack.mysql.service;
 
-import com.ezequiel.itacademy.blackjack.exception.PlayerNotFoundException;
 import com.ezequiel.itacademy.blackjack.mysql.entity.Ranking;
 import com.ezequiel.itacademy.blackjack.mysql.repository.RankingRepository;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import java.util.List;
 
 @Service
 public class RankingServiceImpl implements RankingService {
@@ -18,12 +17,26 @@ public class RankingServiceImpl implements RankingService {
 
     @Override
     public Mono<Ranking> getPlayerRanking(Long playerId) {
-        return rankingRepository.findByPlayerId(playerId)
-                .switchIfEmpty(Mono.error(new PlayerNotFoundException("El jugador con ID " + playerId + " no tiene un ranking registrado.")));
+        return rankingRepository.findByPlayerId(playerId);
     }
 
     @Override
-    public Mono<List<Ranking>> getAllRankings() {
-        return rankingRepository.findAll().collectList();
+    public Flux<Ranking> getAllRankings() {
+        return rankingRepository.findAll();
+    }
+
+    @Override
+    public Mono<Ranking> updateRanking(Long playerId, int pointsToAdd) {
+        return rankingRepository.findByPlayerId(playerId)
+                .flatMap(existingRanking -> {
+                    existingRanking.setPoints(existingRanking.getPoints() + pointsToAdd);
+                    return rankingRepository.save(existingRanking);
+                })
+                .switchIfEmpty(Mono.defer(() -> {
+                    Ranking newRanking = new Ranking();
+                    newRanking.setPlayerId(playerId);
+                    newRanking.setPoints(pointsToAdd);
+                    return rankingRepository.save(newRanking);
+                }));
     }
 }

@@ -67,6 +67,10 @@ public class RankingHandler {
 
     public Mono<ServerResponse> getAllRankings(ServerRequest request) {
         return rankingService.getAllRankings()
-                .flatMap(rankings -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(rankings));
+                .collectList()
+                .flatMap(rankings -> ServerResponse.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .bodyValue(rankings));
     }
+
 }
