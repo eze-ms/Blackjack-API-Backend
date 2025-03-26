@@ -51,7 +51,19 @@ Este proyecto es una API REST desarrollada con **Spring Boot** y **Spring WebFlu
 
 ## 🛠️ Instalación
 
-### 🔹 Opcion 1: Ejecución Local
+### 🔹 Opcion 1: Ejecución con Docker
+1. Construir y levantar los contenedores:
+   ```bash
+   docker-compose up -d --build
+   ```
+2. La API estará disponible en `http://localhost:8081`.
+3. Iniciar MySQL y MongoDB.
+4. Ejecutar la aplicación:
+   ```bash
+   mvn spring-boot:run
+   ```
+
+### 🔹 Opcion 2: Ejecución Local
 1. Clonar el repositorio:
    ```bash
    git clone https://github.com/eze-ms/Blackjack-API-Backend
@@ -69,20 +81,6 @@ Este proyecto es una API REST desarrollada con **Spring Boot** y **Spring WebFlu
        #spring.data.mongodb.database=blackjack_db
        
    ```
-
-### 🔹 Opcion 2: Ejecución con Docker
-1. Construir y levantar los contenedores:
-   ```bash
-   docker-compose up -d --build
-   ```
-2. La API estará disponible en `http://localhost:8081`.
-3. Iniciar MySQL y MongoDB.
-4. Ejecutar la aplicación:
-   ```bash
-   mvn spring-boot:run
-   ```
-
-
 
 ## 📌 Endpoints Principales
 
