@@ -1,0 +1,42 @@
+{
+  "id": "67e444ea0d0d3238ea896b77",
+  "playerId": "1",
+  "createdAt": "2025-03-26T18:18:18.626Z",
+  "playerCards": [
+    {
+      "rank": "EIGHT",
+      "suit": "HEARTS"
+    },
+    {
+      "rank": "QUEEN",
+      "suit": "CLUBS"
+    },
+    {
+      "rank": "ACE",
+      "suit": "HEARTS"
+    }
+  ],
+  "dealerCards": [
+    {
+      "rank": "JACK",
+      "suit": "CLUBS"
+    },
+    {
+      "rank": "FOUR",
+      "suit": "SPADES"
+    },
+    {
+      "rank": "TWO",
+      "suit": "CLUBS"
+    },
+    {
+      "rank": "TWO",
+      "suit": "DIAMONDS"
+    }
+  ],
+  "status": "PLAYER_WINS",
+  "moves": [
+    "HIT",
+    "STAND"
+  ]
+}
