@@ -59,9 +59,9 @@ Este proyecto es una API REST desarrollada con **Spring Boot** y **Spring WebFlu
    ```
 2. Configurar `application.properties` para conectar a bases de datos locales.
    - **Comentar la línea para Docker:**
-         ```bash
-   spring.r2dbc.url=r2dbc:mysql://mysql-container:3306/db_blackjack
-spring.data.mongodb.uri=mongodb://mongodb-container:27017/blackjack_db
+   ```bash
+    spring.r2dbc.url=r2dbc:mysql://mysql-container:3306/db_blackjack
+    spring.data.mongodb.uri=mongodb://mongodb-container:27017/blackjack_db
        ```
 - **Y descomentar las líneas para entorno local:**
     ```bash
@@ -75,14 +75,7 @@ spring.data.mongodb.uri=mongodb://mongodb-container:27017/blackjack_db
    mvn spring-boot:run
    ```
 
-### 🔹 Opcion 2: Ejecución con Docker
-1. Construir y levantar los contenedores:
-   ```bash
-   docker-compose up -d --build
-   ```
-2. La API estará disponible en `http://localhost:8081`.
 
----
 
 ## 📌 Endpoints Principales
 
